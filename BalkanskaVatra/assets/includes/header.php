@@ -1,5 +1,5 @@
 <nav class="fixed top-0 left-0 right-0 z-30 bg-plum-950/85 backdrop-blur-xl border-b border-gold/20">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
       <div class="font-cinzel text-gold">
         <span class="block text-[10px] tracking-[0.3em] font-crimson italic text-gold/50 mb-0.5">Authentic Serbian Restaurant</span>
         <span class="text-base tracking-widest">Balkanska Vatra</span>

@@ -91,14 +91,32 @@
         </div>
     </div>
 
-    <!-- PAGINA: Home (main website) -->
-    <?php include('/assets/includes/home.php'); ?>
+   <!-- home -->
+    <?php include('./assets/includes/home.php'); ?>
 
-    <!-- PAGINA: Login -->
-    <?php include('/assets/includes/login.php'); ?>
+    <!-- login -->
+    <?php include('./assets/includes/login.php'); ?>
 
-    <!-- PAGINA: Admin dashboard -->
-    <?php include('/assets/includes/admin.php'); ?>
+    <!-- admin -->
+    <?php include('./assets/includes/admin.php'); ?>
+
+    <!-- admin -->
+    <?php include('./assets/includes/about.php'); ?>
+
+        <!-- admin -->
+    <?php include('./assets/includes/gallery.php'); ?>
+
+        <!-- admin -->
+    <?php include('./assets/includes/menu.php'); ?>
+
+        <!-- admin -->
+    <?php include('./assets/includes/reservation.php'); ?>
+
+        <!-- admin -->
+    <?php include('./assets/includes/contact.php'); ?>
+
+        <!-- admin -->
+    <?php include('./assets/includes/footer.php'); ?>
 
 </body>
 </html>
