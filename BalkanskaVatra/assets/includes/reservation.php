@@ -12,7 +12,7 @@
           <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold/40"></div>
         </div>
       </div>
-      <form action="reservations.php" method="POST" class="space-y-6">
+      <form action="./assets/includes/savereservation.php" method="POST" class="space-y-6">
         <div class="grid md:grid-cols-2 gap-6">
           <div>
             <label class="block font-cinzel text-[11px] text-gold/70 tracking-widest mb-2">Name <span class="font-crimson italic text-gold/40">/ Ime</span></label>

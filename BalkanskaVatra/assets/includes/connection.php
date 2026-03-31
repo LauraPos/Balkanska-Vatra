@@ -1,6 +1,6 @@
 <?php
 $host = "db";
-$dbname = "mydatabase";
+$dbname = "restaurant";
 $username = "user";
 $password = "password";
 try{

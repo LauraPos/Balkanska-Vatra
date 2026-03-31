@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
       <div class="font-cinzel text-gold">
         <span class="block text-[10px] tracking-[0.3em] font-crimson italic text-gold/50 mb-0.5">Authentic Serbian Restaurant</span>
-        <span class="text-base tracking-widest">Balkanska Vatra</span>
+        <a href="#page-main" class="text-base tracking-widest">Balkanska Vatra</a>
         <span class="block text-[10px] tracking-[0.25em] font-crimson italic text-gold/40 mt-0.5">Балканска Ватра</span>
       </div>
       <ul class="hidden md:flex items-center gap-8">

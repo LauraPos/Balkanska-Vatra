@@ -25,4 +25,40 @@
       m.classList.toggle('hidden');
       m.classList.toggle('flex');
     }
+
+    // menu
+
+    function filterMenu(category) {
+  const cards = document.querySelectorAll('.menu-card');
+
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-gang');
+    if(category === 'all' || cardCat === category){
+      card.style.display = 'block';
+      setTimeout(() => card.style.opacity = 1, 50); // fade-in
+    } else {
+      card.style.opacity = 0;
+      setTimeout(() => card.style.display = 'none', 500); // fade-out
+    }
+  });
+
+  // Active button styling
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.classList.remove('bg-gold', 'text-plum-950');
+    btn.classList.add('text-gold', 'bg-gold/10');
+  });
+  const activeBtn = document.querySelector(`.cat-btn[data-cat="${category}"]`);
+  if(activeBtn){
+    activeBtn.classList.add('bg-gold', 'text-plum-950');
+    activeBtn.classList.remove('bg-gold/10');
+  }
+}
+
+// Voeg click event listeners toe
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => filterMenu(btn.getAttribute('data-cat')));
+});
+
+// Show all on load
+document.addEventListener('DOMContentLoaded', () => filterMenu('all'));
   </script>

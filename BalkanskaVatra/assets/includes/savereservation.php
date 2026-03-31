@@ -1,40 +1,17 @@
 <?php
-include './connection.php';
+include 'connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$sql = "INSERT INTO reserveren (name, email, date, time, guests, notes)
+        VALUES (:name, :email, :date, :time, :guests, :notes)";
 
-    $name   = trim($_POST['name']   ?? '');
-    $email  = trim($_POST['email']  ?? '');
-    $date   = trim($_POST['date']   ?? '');
-    $time   = trim($_POST['time']   ?? '');
-    $guests = trim($_POST['guests'] ?? '');
-    $notes  = trim($_POST['notes']  ?? '');
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(":name", $_POST['name']);
+$stmt->bindParam(":email", $_POST['email']);
+$stmt->bindParam(":date", $_POST['date']);
+$stmt->bindParam(":time", $_POST['time']);
+$stmt->bindParam(":guests", $_POST['guests']);
+$stmt->bindParam(":notes", $_POST['notes']);
+$stmt->execute();
 
-    if ($name && $email && $date && $time) {
-        try {
-            $sql  = "INSERT INTO reservations (name, email, datum, tijd, gasten, opmerkingen, aangemaakt_op)
-                     VALUES (:name, :email, :datum, :tijd, :gasten, :opmerkingen, NOW())";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':name',        $name);
-            $stmt->bindParam(':email',       $email);
-            $stmt->bindParam(':datum',       $date);
-            $stmt->bindParam(':tijd',        $time);
-            $stmt->bindParam(':gasten',      $guests);
-            $stmt->bindParam(':opmerkingen', $notes);
-            $stmt->execute();
-
-            header('Location: ../../index.php?reservation=success#reservations');
-            exit;
-        } catch (PDOException $e) {
-            header('Location: ../../index.php?reservation=error#reservations');
-            exit;
-        }
-    } else {
-        header('Location: ../../index.php?reservation=missing#reservations');
-        exit;
-    }
-}
-
-header('Location: ../../index.php');
-exit;
+header("Location: ../../index.php?reservation=success#reservations");
 ?>
