@@ -1,4 +1,4 @@
-<?php include('./assets/includes/js.js'); ?>
+
 <div id="page-admin" class="page hidden">
   <div class="min-h-screen bg-plum-950 flex">
 

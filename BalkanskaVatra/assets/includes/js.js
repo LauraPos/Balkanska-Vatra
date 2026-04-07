@@ -1,64 +1,88 @@
- <script>
-    // ── Page router ──────────────────────────────────────────────
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
-      window.scrollTo(0, 0);
-    }
-    // ── Admin tab switcher ────────────────────────────────────────
-    function showTab(id) {
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.remove('border-gold', 'text-gold', 'bg-gold/10');
-        b.classList.add('border-gold/20', 'text-plum-400');
-      });
-      document.getElementById(id).classList.remove('hidden');
-      const btn = document.querySelector('[data-tab="' + id + '"]');
-      if (btn) {
-        btn.classList.add('border-gold', 'text-gold', 'bg-gold/10');
-        btn.classList.remove('border-gold/20', 'text-plum-400');
-      }
-    }
-    // ── Modal toggle ──────────────────────────────────────────────
-    function toggleModal(id) {
-      const m = document.getElementById(id);
-      m.classList.toggle('hidden');
-      m.classList.toggle('flex');
-    }
+let cartItems = [];
 
-    // menu
-
-    function filterMenu(category) {
-  const cards = document.querySelectorAll('.menu-card');
-
-  cards.forEach(card => {
-    const cardCat = card.getAttribute('data-gang');
-    if(category === 'all' || cardCat === category){
-      card.style.display = 'block';
-      setTimeout(() => card.style.opacity = 1, 50); // fade-in
-    } else {
-      card.style.opacity = 0;
-      setTimeout(() => card.style.display = 'none', 500); // fade-out
-    }
-  });
-
-  // Active button styling
-  document.querySelectorAll('.cat-btn').forEach(btn => {
-    btn.classList.remove('bg-gold', 'text-plum-950');
-    btn.classList.add('text-gold', 'bg-gold/10');
-  });
-  const activeBtn = document.querySelector(`.cat-btn[data-cat="${category}"]`);
-  if(activeBtn){
-    activeBtn.classList.add('bg-gold', 'text-plum-950');
-    activeBtn.classList.remove('bg-gold/10');
-  }
+// ── PAGE ROUTER ──
+function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    const page = document.getElementById(id);
+    if(page) page.classList.remove('hidden');
 }
 
-// Voeg click event listeners toe
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', () => filterMenu(btn.getAttribute('data-cat')));
-});
+// ── CART ──
+function openCart() {
+    document.getElementById("cart-sidebar").style.transform = "translateX(0)";
+    document.getElementById("cart-overlay").classList.remove("hidden");
+}
 
-// Show all on load
-document.addEventListener('DOMContentLoaded', () => filterMenu('all'));
-  </script>
+function closeCart() {
+    document.getElementById("cart-sidebar").style.transform = "translateX(100%)";
+    document.getElementById("cart-overlay").classList.add("hidden");
+}
+
+function updateCartDisplay() {
+    const cart = document.getElementById("cart-items");
+    const badge = document.getElementById("cart-badge");
+    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+    if(cartItems.length === 0) {
+        cart.innerHTML = '<p class="text-center py-12">Your cart is empty</p>';
+        badge.classList.add("hidden");
+    } else {
+        cart.innerHTML = cartItems.map((item, i) => `
+            <div class="flex justify-between p-2 border-b">
+                <span>${item.name} - €${item.price.toFixed(2)}</span>
+                <button onclick="removeFromCart(${i})">✕</button>
+            </div>
+        `).join('');
+        badge.innerText = cartItems.length;
+        badge.classList.remove("hidden");
+    }
+
+    document.getElementById("cart-total").innerText = "€" + total.toFixed(2);
+}
+
+function addToCart(name, price) {
+    cartItems.push({name, price: parseFloat(price)});
+    updateCartDisplay();
+    openCart();
+}
+
+function removeFromCart(index) {
+    cartItems.splice(index, 1);
+    updateCartDisplay();
+}
+
+// ── MENU FILTER ──
+function filterMenu(category) {
+    document.querySelectorAll('.menu-card').forEach(card => {
+        card.style.display = (category === 'all' || card.dataset.gang === category) ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-gold', 'text-plum-950');
+        btn.classList.add('text-plum-300', 'border-gold/25');
+    });
+
+    const active = document.querySelector(`.cat-btn[data-cat="${category}"]`);
+    if(active){
+        active.classList.add('bg-gold', 'text-plum-950');
+        active.classList.remove('text-plum-300', 'border-gold/25');
+    }
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+    showPage('page-main');
+
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => filterMenu(btn.dataset.cat));
+    });
+    filterMenu('all');
+
+    updateCartDisplay();
+
+    document.querySelectorAll('.cart-add-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            addToCart(btn.dataset.naam, parseFloat(btn.dataset.prijs));
+        });
+    });
+});
