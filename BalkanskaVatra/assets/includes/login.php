@@ -16,7 +16,7 @@
         <p class="font-crimson italic text-plum-500 text-center text-base mb-8">Administrator Access Only</p>
         
         <!-- Login Form -->
-        <form action="/assets/includes/checklogin.php" method="POST" class="space-y-5">
+        <form action="/includes/checklogin.php" method="POST" class="space-y-5">
           <div>
             <label class="block font-cinzel text-[11px] text-gold/60 tracking-widest mb-2">Username</label>
             <input type="text" name="username" placeholder="admin" autocomplete="username" class="w-full bg-plum-950/70 border border-gold/20 outline-none px-5 py-3 text-plum-200" required>

@@ -2,9 +2,17 @@ let cartItems = [];
 
 // ── PAGE ROUTER ──
 function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    console.log("Showing page:", id);
+    document.querySelectorAll('.page').forEach(p => {
+        console.log("Hiding:", p.id);
+        p.classList.add('hidden');
+    });
     const page = document.getElementById(id);
-    if(page) page.classList.remove('hidden');
+    console.log("Found page:", page);
+    if(page) {
+        page.classList.remove('hidden');
+        console.log("Page shown!");
+    }
 }
 
 // ── CART ──
@@ -71,13 +79,23 @@ function filterMenu(category) {
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
-    showPage('page-main');
+    // Check URL parameter voor pagina
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page');
+    
+    if(page) {
+        showPage(`page-${page}`);
+    } else {
+        showPage('page-main');
+    }
 
+    // Menu filter
     document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.addEventListener('click', () => filterMenu(btn.dataset.cat));
     });
     filterMenu('all');
 
+    // Cart
     updateCartDisplay();
 
     document.querySelectorAll('.cart-add-btn').forEach(btn => {
