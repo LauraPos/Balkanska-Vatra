@@ -13,4 +13,4 @@ $stmt->execute();
 
 header("Location: ../../editmenu.php");
 exit;
-?>  1
+?> 
