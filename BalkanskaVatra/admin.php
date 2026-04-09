@@ -1,3 +1,17 @@
+<?php
+// ✅ VERANDERING: Dit was al goed, maar ik heb het gecommentarieerd gemaakt
+// session_start() zorgt dat je sessieverificaties werken
+session_start();
+
+// ✅ VERANDERING: Permission check
+// Als je niet ingelogd bent (admin_logged_in is niet true), word je naar login.php gestuurd
+// Dit voorkomt dat ongeautoriseerden deze pagina zien
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +67,7 @@
           </svg>
           View Site
         </a>
-        <a href="login.php" class="flex items-center gap-2 px-4 py-2 border border-red-900/40 text-red-400/70 hover:border-red-700/50 hover:text-red-400 font-cinzel text-[10px] tracking-widest transition-all duration-200">
+        <a href="assets/includes/logout.php" class="flex items-center gap-2 px-4 py-2 border border-red-900/40 text-red-400/70 hover:border-red-700/50 hover:text-red-400 font-cinzel text-[10px] tracking-widest transition-all duration-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
           </svg>
@@ -100,7 +114,7 @@
         <a href="../../editmenu.php" class="flex items-center gap-2 px-6 py-2.5 border border-gold/25 text-gold/70 font-cinzel text-xs tracking-widest hover:border-gold hover:text-gold transition-all duration-200">
           Edit Dishes
         </a>
-        <a href="#" class="flex items-center gap-2 px-6 py-2.5 bg-gold text-plum-950 font-cinzel text-xs tracking-widest hover:bg-gold-light transition-all duration-200">
+        <a href="addmenu.php" class="flex items-center gap-2 px-6 py-2.5 bg-gold text-plum-950 font-cinzel text-xs tracking-widest hover:bg-gold-light transition-all duration-200">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
@@ -109,9 +123,9 @@
       </div>
 
       <!-- SEARCH BAR -->
-      <div class="mb-6">
-        <input type="search" placeholder="Search dishes..." class="w-full bg-plum-900 border border-gold/20 text-plum-300 font-crimson text-sm px-4 py-3 outline-none focus:border-gold/50 placeholder:text-plum-700 transition-colors">
-      </div>
+      <form method="GET" action="admin.php">
+        <input type="search" name="zoek" value="<?= htmlspecialchars($_GET['zoek'] ?? '') ?>" placeholder="Search dishes..." class="w-full bg-plum-900 border border-gold/20 text-plum-300 font-crimson text-sm px-4 py-3 outline-none focus:border-gold/50 placeholder:text-plum-700 transition-colors">
+      </form>
 
       <div class="space-y-4">
         <?php include 'assets/includes/getmenuadmin.php'; ?>

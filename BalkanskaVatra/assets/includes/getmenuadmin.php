@@ -1,8 +1,17 @@
 <?php
-$query = "SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam";
-$result = $conn->query($query);
+$zoek = $_GET['zoek'] ?? '';
 
-while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+if ($zoek !== '') {
+    $stmt = $conn->prepare("SELECT id, gang, naam, beschrijving, prijs FROM gerechten WHERE naam LIKE :zoek OR beschrijving LIKE :zoek OR gang LIKE :zoek ORDER BY gang, naam");
+    $zoekparam = '%' . $zoek . '%';
+    $stmt->bindParam(':zoek', $zoekparam);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    $result = $conn->query("SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam")->fetchAll(PDO::FETCH_ASSOC);
+}
+
+foreach ($result as $row) {
 ?>
     <div class="bg-plum-900/60 border border-gold/25 p-6 hover:border-gold/40 transition-colors">
         <div class="flex items-start justify-between gap-4 mb-4">

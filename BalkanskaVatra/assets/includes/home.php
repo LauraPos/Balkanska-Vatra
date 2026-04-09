@@ -25,6 +25,6 @@
   <?php include('./assets/includes/reservation.php'); ?>
   <?php include('./assets/includes/contact.php'); ?>
   <?php include('./assets/includes/cart.php'); ?>
-  <?php include('./assets/includes/footer.php'); ?>
+  <?php include('./assets/includes/footer.php'); ?> 
 
 </div>
