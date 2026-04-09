@@ -1,37 +1,35 @@
 let cartItems = [];
 
-// ── PAGE ROUTER ──
-function showPage(id) {
-    console.log("Showing page:", id);
-    document.querySelectorAll('.page').forEach(p => {
-        console.log("Hiding:", p.id);
-        p.classList.add('hidden');
-    });
-    const page = document.getElementById(id);
-    console.log("Found page:", page);
-    if(page) {
-        page.classList.remove('hidden');
-        console.log("Page shown!");
-    }
-}
-
 // ── CART ──
 function openCart() {
-    document.getElementById("cart-sidebar").style.transform = "translateX(0)";
-    document.getElementById("cart-overlay").classList.remove("hidden");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const cartOverlay = document.getElementById("cart-overlay");
+    if (!cartSidebar || !cartOverlay) return;
+    
+    cartSidebar.style.transform = "translateX(0)";
+    cartOverlay.classList.remove("hidden");
 }
 
 function closeCart() {
-    document.getElementById("cart-sidebar").style.transform = "translateX(100%)";
-    document.getElementById("cart-overlay").classList.add("hidden");
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const cartOverlay = document.getElementById("cart-overlay");
+    if (!cartSidebar || !cartOverlay) return;
+    
+    cartSidebar.style.transform = "translateX(100%)";
+    cartOverlay.classList.add("hidden");
 }
 
 function updateCartDisplay() {
     const cart = document.getElementById("cart-items");
     const badge = document.getElementById("cart-badge");
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const total = document.getElementById("cart-total");
 
-    if(cartItems.length === 0) {
+    // Alleen uitvoeren als cart elementen bestaan
+    if (!cart || !badge || !total) return;
+
+    const cartTotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+
+    if (cartItems.length === 0) {
         cart.innerHTML = '<p class="text-center py-12">Your cart is empty</p>';
         badge.classList.add("hidden");
     } else {
@@ -45,11 +43,11 @@ function updateCartDisplay() {
         badge.classList.remove("hidden");
     }
 
-    document.getElementById("cart-total").innerText = "€" + total.toFixed(2);
+    total.innerText = "€" + cartTotal.toFixed(2);
 }
 
 function addToCart(name, price) {
-    cartItems.push({name, price: parseFloat(price)});
+    cartItems.push({ name, price: parseFloat(price) });
     updateCartDisplay();
     openCart();
 }
@@ -71,36 +69,106 @@ function filterMenu(category) {
     });
 
     const active = document.querySelector(`.cat-btn[data-cat="${category}"]`);
-    if(active){
+    if (active) {
         active.classList.add('bg-gold', 'text-plum-950');
         active.classList.remove('text-plum-300', 'border-gold/25');
     }
 }
 
-// ── INIT ──
-document.addEventListener('DOMContentLoaded', () => {
-    // Check URL parameter voor pagina
-    const params = new URLSearchParams(window.location.search);
-    const page = params.get('page');
-    
-    if(page) {
-        showPage(`page-${page}`);
-    } else {
-        showPage('page-main');
+// ── ADMIN SIDEBAR NAVIGATION ──
+function showTab(tabId) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-panel').forEach(tab => {
+        tab.classList.add('hidden');
+    });
+
+    // Remove active state from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-gold', 'bg-gold/10', 'text-gold');
+        btn.classList.add('border-gold/20', 'text-plum-400');
+    });
+
+    // Show selected tab
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.classList.remove('hidden');
     }
 
-    // Menu filter
-    document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.addEventListener('click', () => filterMenu(btn.dataset.cat));
+    // Add active state to clicked button
+    const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
+    if (activeBtn) {
+        activeBtn.classList.remove('border-gold/20', 'text-plum-400');
+        activeBtn.classList.add('border-gold', 'bg-gold/10', 'text-gold');
+    }
+
+    // Update page title
+    const titles = {
+        'tab-messages': 'Messages',
+        'tab-reservations': 'Reservations',
+        'tab-menu': 'Menu Items'
+    };
+    const pageTitle = document.getElementById('page-title');
+    if (pageTitle) {
+        pageTitle.textContent = titles[tabId] || 'Dashboard';
+    }
+}
+
+function toggleModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.toggle('hidden');
+    }
+}
+
+// ── ADMIN MENU SEARCH ──
+function searchMenu() {
+    const searchInput = document.getElementById('menu-search');
+    if (!searchInput) return;
+
+    const query = searchInput.value.toLowerCase();
+    const menuItems = document.querySelectorAll('[data-menu-item]');
+
+    menuItems.forEach(item => {
+        const name = item.dataset.name.toLowerCase();
+        const category = item.dataset.category.toLowerCase();
+        
+        if (name.includes(query) || category.includes(query)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
     });
-    filterMenu('all');
+}
+
+// ── INITIALIZE ──
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu filter
+    if (document.querySelectorAll('.cat-btn').length > 0) {
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', () => filterMenu(btn.dataset.cat));
+        });
+        filterMenu('all');
+    }
 
     // Cart
-    updateCartDisplay();
+    if (document.getElementById('cart-items')) {
+        updateCartDisplay();
 
-    document.querySelectorAll('.cart-add-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            addToCart(btn.dataset.naam, parseFloat(btn.dataset.prijs));
+        document.querySelectorAll('.cart-add-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                addToCart(btn.dataset.naam, parseFloat(btn.dataset.prijs));
+            });
         });
-    });
+    }
+
+    // Admin menu search
+    const searchInput = document.getElementById('menu-search');
+    if (searchInput) {
+        searchInput.addEventListener('keyup', searchMenu);
+    }
+
+    // Admin sidebar - show messages by default
+    if (document.getElementById('tab-messages')) {
+        showTab('tab-messages');
+    }
 });

@@ -17,11 +17,11 @@ if ($user) {
     $_SESSION['username'] = $user['username'];
     $_SESSION['admin_logged_in'] = true;
     
-    // Naar admin.php in dezelfde folder
-    header("Location: ./admin.php");
+    // Naar admin.php in de root
+    header("Location: ../../admin.php");
     exit;
 } else {
-    header("Location: ./login.php?error=1");
+    header("Location: ../../login.php?error=1");
     exit;
 }
 ?>

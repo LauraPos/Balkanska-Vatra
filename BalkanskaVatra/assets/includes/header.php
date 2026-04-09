@@ -18,7 +18,7 @@
       <a href="#reservations" class="hidden md:inline-block px-5 py-2 border border-gold text-gold font-cinzel text-xs tracking-widest hover:bg-gold hover:text-plum-950 transition-all duration-300">
         Reserve <span class="font-crimson italic font-normal opacity-70 text-[11px] ml-1">/ Резервација</span>
       </a>
-      <button onclick="showPage('page-login')" class="hidden md:inline-block px-3 py-2 border border-plum-600/40 text-plum-500 font-cinzel text-[10px] tracking-widest hover:border-plum-500 hover:text-plum-300 transition-all duration-300">Admin</button>
+      <a href="login.php"" class="hidden md:inline-block px-3 py-2 border border-plum-600/40 text-plum-500 font-cinzel text-[10px] tracking-widest hover:border-plum-500 hover:text-plum-300 transition-all duration-300">Admin</a>
     </div>
   </div>
 </nav>

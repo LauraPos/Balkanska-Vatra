@@ -60,8 +60,6 @@
 <body class="bg-plum-950 text-gold-pale font-crimson overflow-x-hidden">
 
 <?php include('./assets/includes/home.php'); ?>
-<?php include('./assets/includes/login.php'); ?>
-<?php include('./assets/includes/admin.php'); ?>
 <script src="./assets/includes/js.js"></script>
 </body>
 </html>
