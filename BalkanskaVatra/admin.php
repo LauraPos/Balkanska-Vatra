@@ -111,7 +111,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
           <h2 class="font-cinzel text-gold text-3xl tracking-wider mb-2">Menu Items</h2>
           <p class="font-crimson italic text-plum-500 text-sm">Manage dishes, prices and categories</p>
         </div>
-        <a href="../../editmenu.php" class="flex items-center gap-2 px-6 py-2.5 border border-gold/25 text-gold/70 font-cinzel text-xs tracking-widest hover:border-gold hover:text-gold transition-all duration-200">
+        <a href="editmenu.php" class="flex items-center gap-2 px-6 py-2.5 border border-gold/25 text-gold/70 font-cinzel text-xs tracking-widest hover:border-gold hover:text-gold transition-all duration-200">
           Edit Dishes
         </a>
         <a href="addmenu.php" class="flex items-center gap-2 px-6 py-2.5 bg-gold text-plum-950 font-cinzel text-xs tracking-widest hover:bg-gold-light transition-all duration-200">

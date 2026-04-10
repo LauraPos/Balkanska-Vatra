@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-// ✅ VERANDERING: session_start() TOEGEVOEGD
-// Dit zorgt dat je session actief blijft op alle pagina's
-session_start();
 include('./assets/includes/connection.php'); 
 ?>
 

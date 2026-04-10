@@ -11,13 +11,12 @@ $stmt->bindParam(":username", $username);
 $stmt->bindParam(":password", $password);
 $stmt->execute();
 
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = $stmt->fetch();
 
 if ($user) {
     $_SESSION['username'] = $user['username'];
     $_SESSION['admin_logged_in'] = true;
     
-    // Naar admin.php in de root
     header("Location: ../../admin.php");
     exit;
 } else {

@@ -75,43 +75,6 @@ function filterMenu(category) {
     }
 }
 
-// ── ADMIN SIDEBAR NAVIGATION ──
-function showTab(tabId) {
-    // Hide all tabs
-    document.querySelectorAll('.tab-panel').forEach(tab => {
-        tab.classList.add('hidden');
-    });
-
-    // Remove active state from all buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('border-gold', 'bg-gold/10', 'text-gold');
-        btn.classList.add('border-gold/20', 'text-plum-400');
-    });
-
-    // Show selected tab
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.classList.remove('hidden');
-    }
-
-    // Add active state to clicked button
-    const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
-    if (activeBtn) {
-        activeBtn.classList.remove('border-gold/20', 'text-plum-400');
-        activeBtn.classList.add('border-gold', 'bg-gold/10', 'text-gold');
-    }
-
-    // Update page title
-    const titles = {
-        'tab-messages': 'Messages',
-        'tab-reservations': 'Reservations',
-        'tab-menu': 'Menu Items'
-    };
-    const pageTitle = document.getElementById('page-title');
-    if (pageTitle) {
-        pageTitle.textContent = titles[tabId] || 'Dashboard';
-    }
-}
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -120,25 +83,7 @@ function toggleModal(modalId) {
     }
 }
 
-// ── ADMIN MENU SEARCH ──
-function searchMenu() {
-    const searchInput = document.getElementById('menu-search');
-    if (!searchInput) return;
 
-    const query = searchInput.value.toLowerCase();
-    const menuItems = document.querySelectorAll('[data-menu-item]');
-
-    menuItems.forEach(item => {
-        const name = item.dataset.name.toLowerCase();
-        const category = item.dataset.category.toLowerCase();
-        
-        if (name.includes(query) || category.includes(query)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
 
 // ── INITIALIZE ──
 document.addEventListener('DOMContentLoaded', function() {
@@ -159,16 +104,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 addToCart(btn.dataset.naam, parseFloat(btn.dataset.prijs));
             });
         });
-    }
-
-    // Admin menu search
-    const searchInput = document.getElementById('menu-search');
-    if (searchInput) {
-        searchInput.addEventListener('keyup', searchMenu);
-    }
-
-    // Admin sidebar - show messages by default
-    if (document.getElementById('tab-messages')) {
-        showTab('tab-messages');
     }
 });

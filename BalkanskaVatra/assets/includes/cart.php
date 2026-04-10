@@ -1,5 +1,3 @@
-    <!-- WINKELWAGEN SIDEBAR (buiten alle pages, altijd aanwezig) -->
-    <!-- overlay -->
     <div id="cart-overlay" onclick="closeCart()" class="hidden fixed inset-0 bg-plum-950/70 backdrop-blur-sm z-40"></div>
 
     <!-- sidebar -->
@@ -11,14 +9,14 @@
             </div>
             <button onclick="closeCart()" class="text-plum-400 hover:text-gold transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
         <div id="cart-items" class="flex-1 overflow-y-auto px-6 py-2">
             <p class="font-crimson italic text-plum-500 text-center py-12 text-lg">
-                Your cart is empty.<br/>
+                Your cart is empty.<br />
                 <span class="text-sm text-plum-600">Корпа је празна.</span>
             </p>
         </div>

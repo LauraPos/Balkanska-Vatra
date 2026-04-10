@@ -1,5 +1,11 @@
 <?php
-// login.php
+session_start();
+if ($_SESSION['admin_logged_in'] !== true || !isset($_SESSION['admin_logged_in']) ){
+  echo 'hoi';
+}
+else{
+header ('Location: admin.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +49,9 @@
 <body>
   <div>
     <div class="min-h-screen bg-plum-950 font-crimson flex items-center justify-center relative py-12">
-      <button onclick="showPage('page-main')" class="absolute top-6 left-6 flex items-center gap-2 text-plum-400 hover:text-gold transition-colors duration-300 font-cinzel text-xs tracking-widest">
+      <a href="index.php" class="absolute top-6 left-6 flex items-center gap-2 text-plum-400 hover:text-gold transition-colors duration-300 font-cinzel text-xs tracking-widest">
         ← Back to Site
-      </button>
+      </a>
       <div class="relative z-10 w-full max-w-md px-6">
         <div class="text-center mb-10">
           <p class="font-cinzel text-gold text-2xl tracking-widest leading-tight">Balkanska Vatra</p>
@@ -71,10 +77,9 @@
           </form>
 
           <!-- Foutmelding bij verkeerde login -->
-          <?php if (isset($_GET['error'])): ?>
+          <?php if (isset($_GET['error'])) {?>
             <p class="text-red-500 text-center mt-4 text-sm">Wrong username or password.</p>
-          <?php endif; ?>
-
+          <?php }?>
         </div>
       </div>
     </div>
