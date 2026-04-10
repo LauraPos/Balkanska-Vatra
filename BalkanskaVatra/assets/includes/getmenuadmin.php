@@ -6,7 +6,7 @@ if ($zoek !== '') {
     $zoekparam = '%' . $zoek . '%';
     $stmt->bindParam(':zoek', $zoekparam);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
 } else {
     $result = $conn->query("SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam")->fetchAll(PDO::FETCH_ASSOC);
 }

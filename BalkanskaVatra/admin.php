@@ -1,17 +1,3 @@
-<?php
-// ✅ VERANDERING: Dit was al goed, maar ik heb het gecommentarieerd gemaakt
-// session_start() zorgt dat je sessieverificaties werken
-session_start();
-
-// ✅ VERANDERING: Permission check
-// Als je niet ingelogd bent (admin_logged_in is niet true), word je naar login.php gestuurd
-// Dit voorkomt dat ongeautoriseerden deze pagina zien
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

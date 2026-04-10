@@ -1,15 +1,3 @@
-<?php
-// ✅ VERANDERING: session_start() TOEGEVOEGD
-// Dit zorgt dat de session wordt herkend
-session_start();
-
-// ✅ VERANDERING: Permission check TOEGEVOEGD
-// Als je niet ingelogd bent, word je naar login.php gestuurd
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php");
-    exit;
-}
-
 include 'assets/includes/connection.php';
 ?>
 

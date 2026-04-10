@@ -4,7 +4,7 @@ require 'connection.php';
 $query = "SELECT name, email, subject, message FROM contact";
 $result = $conn->query($query);
 
-while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+while ($row = $result->fetch()) {
 ?>
     <div class="bg-plum-900/60 border border-gold/25 p-6 hover:border-gold/40 transition-colors">
         <div class="flex items-center gap-3 mb-4">

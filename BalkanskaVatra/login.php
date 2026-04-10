@@ -1,10 +1,10 @@
 <?php
 session_start();
-if ($_SESSION['admin_logged_in'] !== true || !isset($_SESSION['admin_logged_in']) ){
-  echo 'hoi';
-}
-else{
-header ('Location: admin.php');
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+   
+} else {
+    header('Location: admin.php');
+    
 }
 ?>
 <!DOCTYPE html>

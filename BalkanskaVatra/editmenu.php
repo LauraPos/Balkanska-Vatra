@@ -1,15 +1,3 @@
-<?php
-// ✅ VERANDERING: session_start() TOEGEVOEGD
-// Dit zorgt dat de session wordt herkend
-session_start();
-
-// ✅ VERANDERING: Permission check TOEGEVOEGD
-// Als je niet ingelogd bent, word je naar login.php gestuurd
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header("Location: login.php");
-    exit;
-}
-
 include 'assets/includes/connection.php';
 
 $query = "SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam";
@@ -72,7 +60,7 @@ $result = $conn->query($query);
 
   <main class="max-w-7xl mx-auto px-8 py-12">
     <div class="space-y-6">
-      <?php while($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
+      <?php while($row = $result->fetch()){ ?>
         <div class="bg-plum-900/40 border border-gold/20 p-6">
           <div class="flex items-start justify-between mb-4">
             <div>
@@ -120,7 +108,7 @@ $result = $conn->query($query);
             </button>
           </form>
         </div>
-      <?php endwhile; ?>
+      <?php } ?>
     </div>
   </main>
 
