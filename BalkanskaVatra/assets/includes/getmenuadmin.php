@@ -8,7 +8,7 @@ if ($zoek !== '') {
     $stmt->execute();
     $result = $stmt->fetchAll();
 } else {
-    $result = $conn->query("SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam")->fetchAll(PDO::FETCH_ASSOC);
+    $result = $conn->query("SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam")->fetchAll();
 }
 
 foreach ($result as $row) {
@@ -18,9 +18,9 @@ foreach ($result as $row) {
             <div class="flex-1">
                 <span class="inline-block px-2 py-1 bg-plum-700/50 border border-plum-600/40 text-plum-300 font-cinzel text-[9px] tracking-widest mb-2"><?= htmlspecialchars($row['gang']) ?></span>
                 <p class="font-cinzel text-gold text-lg mb-1"><?= htmlspecialchars($row['naam']) ?></p>
-                <?php if (!empty($row['beschrijving'])): ?>
+                <?php if (!empty($row['beschrijving'])){?>
                     <p class="font-crimson italic text-plum-400 text-sm"><?= htmlspecialchars($row['beschrijving']) ?></p>
-                <?php endif; ?>
+                <?php } ?>
             </div>
             <p class="font-cinzel text-gold text-lg shrink-0">€<?= number_format($row['prijs'], 2) ?></p>
         </div>
