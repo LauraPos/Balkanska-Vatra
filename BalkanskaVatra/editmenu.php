@@ -1,3 +1,4 @@
+<?php
 include 'assets/includes/connection.php';
 
 $query = "SELECT id, gang, naam, beschrijving, prijs FROM gerechten ORDER BY gang, naam";
@@ -108,7 +109,7 @@ $result = $conn->query($query);
             </button>
           </form>
         </div>
-      <?php } ?>
+      <?php }; ?>
     </div>
   </main>
 
