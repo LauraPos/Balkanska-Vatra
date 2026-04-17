@@ -26,33 +26,7 @@ include 'connection.php';
 
     <!-- MENU GRID -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-grid">
-      <?php
-      $stmt = $conn->query("SELECT * FROM gerechten ORDER BY gang, naam");
-      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $gang = htmlspecialchars($row['gang']);
-        $naam = htmlspecialchars($row['naam']);
-        $prijs = number_format($row['prijs'], 2, '.', '');
-        $beschrijving = htmlspecialchars($row['beschrijving']);
-      ?>
-        <div class="menu-card opacity-100 transition-opacity duration-500 bg-plum-900/60 border border-gold/15 p-6" data-gang="<?= $gang ?>">
-
-          <span class="text-plum-400 text-xs mb-2 block"><?= ucfirst(str_replace('_', ' ', $gang)) ?></span>
-
-          <div class="flex justify-between mb-2">
-            <h3 class="text-gold"><?= $naam ?></h3>
-            <span class="text-gold">€<?= $prijs ?></span>
-          </div>
-
-          <p class="text-plum-300 text-sm mb-4"><?= $beschrijving ?></p>
-
-          <button
-            data-naam="<?= htmlspecialchars($row['naam']) ?>"
-            data-prijs="<?= floatval($row['prijs']) ?>"
-            class="cart-add-btn w-full py-2 border border-gold text-gold hover:bg-gold hover:text-plum-950 transition">
-            Add to Order
-          </button>
-        </div>
-      <?php } ?>
+      <?php include 'newmenu.php'; ?>
     </div>
   </div>
 </section>
